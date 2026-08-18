@@ -477,6 +477,9 @@ class PayRozgar {
   applyBusinessProfile(profile) {
     if (!profile) return;
 
+    this.state.businessDetails = profile;
+    this.saveState();
+
     // Dynamically update dashboard title to include business name
     const greetingTitle = document.getElementById('dash-greeting-title');
     if (greetingTitle) greetingTitle.textContent = 'Monthly payroll for ' + profile.name;
@@ -1861,7 +1864,13 @@ class PayRozgar {
     if (!modal || !emp) return;
 
     // Business details
-    const biz = this.state.businessDetails || {};
+    let biz = this.state.businessDetails || {};
+    try {
+        const savedBiz = localStorage.getItem(this.BIZ_STORAGE_KEY);
+        if (savedBiz) {
+            biz = JSON.parse(savedBiz);
+        }
+    } catch(e) {}
     const bizNameEl = document.getElementById('ps-biz-name');
     const bizSubEl = document.getElementById('ps-biz-sub');
 
