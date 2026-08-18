@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayRozgar - Professional Payroll Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="10" fill="url(#gradient)"/>
+                        <path d="M12 20L18 26L28 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1"/>
+                                <stop offset="100%" style="stop-color:#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="logo-text">
+                        <h1>PayRozgar</h1>
+                        <span>Payroll Management</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-link active" data-page="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-link" data-page="attendance">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <span>Attendance</span>
+                </button>
+                <button class="nav-link" data-page="employees">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <span>Employees</span>
+                </button>
+                <button class="nav-link" data-page="payroll">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    <span>Payroll</span>
+                </button>
+                <button class="nav-link" data-page="reports">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                    <span>Reports</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop" alt="User">
+                    <div class="user-info">
+                        <div class="user-name">Rahul Sharma</div>
+                        <div class="user-role">Admin</div>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="search-container">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                        <input type="search" placeholder="Search employees, payroll, reports..." />
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn" id="theme-toggle" title="Toggle Theme" aria-label="Toggle dark/light mode">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn" title="Notifications">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="icon-btn" title="Security">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+            <!-- Dashboard Page -->
+            <section class="page active" id="dashboard">
+                <div class="page-header">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Welcome back! Here's your business overview</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export
+                        </button>
+                        <button class="btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Employee
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card" style="--delay: 0">
+                        <div class="metric-icon" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-label">Total Employees</div>
+                            <div class="metric-value">8</div>
+                            <div class="metric-change positive">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>Active shop workforce</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card" style="--delay: 1">
+                        <div class="metric-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-label">Attendance Rate</div>
+                            <div class="metric-value">87.5%</div>
+                            <div class="metric-change positive">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>7 of 8 active today</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card" style="--delay: 2">
+                        <div class="metric-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-label">This Month Payroll</div>
+                            <div class="metric-value">₹2,78,000</div>
+                            <div class="metric-change">
+                                <span>1 payment pending</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card" style="--delay: 3">
+                        <div class="metric-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-label">Avg Processing Time</div>
+                            <div class="metric-value">15m</div>
+                            <div class="metric-change positive">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>Instant PWA payout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Activity</h3>
+                            <button class="btn-text">View All</button>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop" alt="" class="activity-avatar">
+                                <div class="activity-content">
+                                    <div class="activity-title">Amit Sharma marked Present</div>
+                                    <div class="activity-time">10 minutes ago</div>
+                                </div>
+                                <span class="badge badge-present">Present</span>
+                            </div>
+                            <div class="activity-item">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616c0763c04?w=40&h=40&fit=crop" alt="" class="activity-avatar">
+                                <div class="activity-content">
+                                    <div class="activity-title">Priya Mehta marked Absent</div>
+                                    <div class="activity-time">1 hour ago</div>
+                                </div>
+                                <span class="badge badge-absent">Absent</span>
+                            </div>
+                            <div class="activity-item">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop" alt="" class="activity-avatar">
+                                <div class="activity-content">
+                                    <div class="activity-title">Sneha Patel marked Half Day</div>
+                                    <div class="activity-time">3 hours ago</div>
+                                </div>
+                                <span class="badge badge-halfday">Half Day</span>
+                            </div>
+                            <div class="activity-item">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop" alt="" class="activity-avatar">
+                                <div class="activity-content">
+                                    <div class="activity-title">Vikram Singh marked On Leave</div>
+                                    <div class="activity-time">Yesterday</div>
+                                </div>
+                                <span class="badge badge-leave">Leave</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Upcoming Payments</h3>
+                            <button class="btn-text">Manage</button>
+                        </div>
+                        <div class="payment-list">
+                            <div class="payment-item">
+                                <div class="payment-info">
+                                    <div class="payment-title">Monthly Staff Salaries</div>
+                                    <div class="payment-date">Due in 3 days</div>
+                                </div>
+                                <div class="payment-amount">₹2,56,000</div>
+                            </div>
+                            <div class="payment-item">
+                                <div class="payment-info">
+                                    <div class="payment-title">Sales Incentive & Bonus</div>
+                                    <div class="payment-date">Due in 10 days</div>
+                                </div>
+                                <div class="payment-amount">₹22,000</div>
+                            </div>
+                            <div class="payment-item">
+                                <div class="payment-info">
+                                    <div class="payment-title">EPF / ESI Contribution</div>
+                                    <div class="payment-date">Due in 15 days</div>
+                                </div>
+                                <div class="payment-amount">₹14,500</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attendance Page -->
+            <section class="page" id="attendance">
+                <div class="page-header">
+                    <div>
+                        <h1>Attendance Management</h1>
+                        <p>Track and manage employee attendance</p>
+                    </div>
+                    <div class="page-actions">
+                        <div class="date-picker">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <span>December 15, 2026</span>
+                        </div>
+                        <button class="btn-primary">Save Changes</button>
+                    </div>
+                </div>
+
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <span class="stat-label">Present</span>
+                        <span class="stat-value">186</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Absent</span>
+                        <span class="stat-value">24</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Half Day</span>
+                        <span class="stat-value">18</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">On Leave</span>
+                        <span class="stat-value">20</span>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Department</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Hours</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="employee-cell">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop" alt="">
+                                        <div>
+                                            <div class="employee-name">Amit Sharma</div>
+                                            <div class="employee-id">EMP-001</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Sales</td>
+                                <td>09:15 AM</td>
+                                <td>06:30 PM</td>
+                                <td>9h 15m</td>
+                                <td><span class="badge badge-success">Present</span></td>
+                                <td>
+                                    <button class="btn-icon">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="12" cy="5" r="1"/>
+                                            <circle cx="12" cy="19" r="1"/>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="employee-cell">
+                                        <img src="https://images.unsplash.com/photo-1494790108755-2616c0763c04?w=32&h=32&fit=crop" alt="">
+                                        <div>
+                                            <div class="employee-name">Priya Mehta</div>
+                                            <div class="employee-id">EMP-002</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Marketing</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td><span class="badge badge-error">Absent</span></td>
+                                <td>
+                                    <button class="btn-icon">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="12" cy="5" r="1"/>
+                                            <circle cx="12" cy="19" r="1"/>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="employee-cell">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop" alt="">
+                                        <div>
+                                            <div class="employee-name">Sneha Patel</div>
+                                            <div class="employee-id">EMP-003</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Operations</td>
+                                <td>09:00 AM</td>
+                                <td>02:00 PM</td>
+                                <td>5h 00m</td>
+                                <td><span class="badge badge-warning">Half Day</span></td>
+                                <td>
+                                    <button class="btn-icon">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="12" cy="5" r="1"/>
+                                            <circle cx="12" cy="19" r="1"/>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Employees Page -->
+            <section class="page" id="employees">
+                <div class="page-header">
+                    <div>
+                        <h1>Employees</h1>
+                        <p>Manage your workforce</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export
+                        </button>
+                        <button class="btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Employee
+                        </button>
+                    </div>
+                </div>
+
+                <div class="employees-grid">
+                    <div class="employee-card">
+                        <div class="employee-card-header">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop" alt="" class="employee-photo">
+                            <button class="btn-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="1"/>
+                                    <circle cx="12" cy="5" r="1"/>
+                                    <circle cx="12" cy="19" r="1"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="employee-card-body">
+                            <h4>Amit Sharma</h4>
+                            <p>Sales Associate</p>
+                            <div class="employee-meta">
+                                <span>EMP-001</span>
+                                <span>Sales Dept.</span>
+                            </div>
+                        </div>
+                        <div class="employee-card-footer">
+                            <div>
+                                <div class="label">Salary</div>
+                                <div class="value">₹15,000/mo</div>
+                            </div>
+                            <button class="btn-sm">View</button>
+                        </div>
+                    </div>
+
+                    <div class="employee-card">
+                        <div class="employee-card-header">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616c0763c04?w=64&h=64&fit=crop" alt="" class="employee-photo">
+                            <button class="btn-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="1"/>
+                                    <circle cx="12" cy="5" r="1"/>
+                                    <circle cx="12" cy="19" r="1"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="employee-card-body">
+                            <h4>Priya Mehta</h4>
+                            <p>Marketing Manager</p>
+                            <div class="employee-meta">
+                                <span>EMP-002</span>
+                                <span>Marketing Dept.</span>
+                            </div>
+                        </div>
+                        <div class="employee-card-footer">
+                            <div>
+                                <div class="label">Salary</div>
+                                <div class="value">₹35,000/mo</div>
+                            </div>
+                            <button class="btn-sm">View</button>
+                        </div>
+                    </div>
+
+                    <div class="employee-card">
+                        <div class="employee-card-header">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop" alt="" class="employee-photo">
+                            <button class="btn-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="1"/>
+                                    <circle cx="12" cy="5" r="1"/>
+                                    <circle cx="12" cy="19" r="1"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="employee-card-body">
+                            <h4>Sneha Patel</h4>
+                            <p>Operations Head</p>
+                            <div class="employee-meta">
+                                <span>EMP-003</span>
+                                <span>Operations Dept.</span>
+                            </div>
+                        </div>
+                        <div class="employee-card-footer">
+                            <div>
+                                <div class="label">Salary</div>
+                                <div class="value">₹45,000/mo</div>
+                            </div>
+                            <button class="btn-sm">View</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payroll Page -->
+            <section class="page" id="payroll">
+                <div class="page-header">
+                    <div>
+                        <h1>Payroll Management</h1>
+                        <p>Process and manage employee payroll</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-secondary">Generate Report</button>
+                        <button class="btn-primary" id="open-record-entry-btn">Record Entry</button>
+                    </div>
+                </div>
+
+                <div class="payroll-summary">
+                    <div class="summary-card">
+                        <div class="summary-label">Total Payable</div>
+                        <div class="summary-value">₹18,45,000</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Processed</div>
+                        <div class="summary-value">₹16,20,000</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Pending</div>
+                        <div class="summary-value">₹2,25,000</div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Base Salary</th>
+                                <th>Overtime / Bonus</th>
+                                <th>Deductions</th>
+                                <th>Net Payable</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="employee-cell">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop" alt="">
+                                        <div>
+                                            <div class="employee-name">Amit Sharma</div>
+                                            <div class="employee-id">EMP-001</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>₹35,000</td>
+                                <td>+₹9,000</td>
+                                <td>-₹1,500</td>
+                                <td><strong>₹42,500</strong></td>
+                                <td><span class="badge badge-success">Paid</span></td>
+                                <td>
+                                    <button class="btn-sm">Payslip</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="employee-cell">
+                                        <img src="https://images.unsplash.com/photo-1494790108755-2616c0763c04?w=32&h=32&fit=crop" alt="">
+                                        <div>
+                                            <div class="employee-name">Priya Mehta</div>
+                                            <div class="employee-id">EMP-002</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>₹45,000</td>
+                                <td>+₹4,000</td>
+                                <td>-₹2,000</td>
+                                <td><strong>₹47,000</strong></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <button class="btn-sm">Process</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="employee-cell">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop" alt="">
+                                        <div>
+                                            <div class="employee-name">Sneha Patel</div>
+                                            <div class="employee-id">EMP-003</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>₹55,000</td>
+                                <td>+₹6,000</td>
+                                <td>-₹2,500</td>
+                                <td><strong>₹58,500</strong></td>
+                                <td><span class="badge badge-success">Paid</span></td>
+                                <td>
+                                    <button class="btn-sm">Payslip</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Reports Page -->
+            <section class="page" id="reports">
+                <div class="page-header">
+                    <div>
+                        <h1>Reports & Analytics</h1>
+                        <p>View insights and generate reports</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-secondary">Download All</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <p style="padding: 2rem; text-align: center; color: #64748b;">Reports and analytics dashboard coming soon...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Add Employee Modal -->
+    <div class="modal-overlay" id="add-employee-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Add New Employee</h3>
+                <button class="btn-icon modal-close" id="modal-close-btn" aria-label="Close modal" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="add-employee-form">
+                <div class="form-group">
+                    <label for="emp-name">Full Name</label>
+                    <input type="text" id="emp-name" required placeholder="e.g. Rahul Sharma" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                    <label for="emp-role">Job Title / Role</label>
+                    <input type="text" id="emp-role" required placeholder="e.g. Sales Associate" autocomplete="off" />
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="emp-dept">Department</label>
+                        <select id="emp-dept" required>
+                            <option value="Sales">Sales</option>
+                            <option value="Management">Management</option>
+                            <option value="Inventory">Inventory</option>
+                            <option value="Technical">Technical</option>
+                            <option value="Accounts">Accounts</option>
+                            <option value="Logistics">Logistics</option>
+                            <option value="Billing">Billing</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-salary">Base Monthly Salary (₹)</label>
+                        <input type="number" id="emp-salary" required min="1000" step="500" placeholder="e.g. 30000" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Employee</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Record Financial Entry Modal -->
+    <div class="modal-overlay" id="record-entry-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Record Financial Adjustment</h3>
+                <button class="btn-icon modal-close" id="record-entry-close-btn" aria-label="Close modal" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="record-entry-form">
+                <div class="form-group">
+                    <label for="entry-emp-select">Select Employee</label>
+                    <select id="entry-emp-select" required>
+                        <!-- Dynamically populated -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Adjustment Type</label>
+                    <div class="radio-toggle-group">
+                        <label class="radio-option">
+                            <input type="radio" name="entryType" value="overtime" checked />
+                            <span>Overtime / Bonus</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="entryType" value="deduction" />
+                            <span>Advance / Deduction</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="entry-amount">Amount (₹)</label>
+                    <input type="number" id="entry-amount" required min="1" step="100" placeholder="e.g. 2000" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="record-entry-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Entry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
