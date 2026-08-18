@@ -10,78 +10,201 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- First-Time Business Setup Onboarding Overlay (FR-01) -->
+    <div class="onboarding-overlay" id="onboarding-overlay">
+        <div class="onboarding-card">
+            <!-- Step 1: Business Profile Inputs -->
+            <div class="onboarding-step active" id="onboard-step-1">
+                <div class="onboarding-header">
+                    <div class="onboarding-logo">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="10" fill="#1e293b"/>
+                            <path d="M12 20L18 26L28 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h2>PayRozgar</h2>
+                    </div>
+                    <h1>Set Up Your Business</h1>
+                    <p>Enter your shop or business details to get started with attendance & monthly payroll management.</p>
+                </div>
+                <form id="onboarding-form">
+                    <div class="form-group">
+                        <label for="onboard-biz-name">Business Name *</label>
+                        <input type="text" id="onboard-biz-name" required placeholder="e.g. Sharma General Store" autocomplete="organization" />
+                    </div>
+                    <div class="form-group">
+                        <label for="onboard-biz-category">Business Category *</label>
+                        <select id="onboard-biz-category" required>
+                            <option value="" disabled selected>Select category...</option>
+                            <option value="General Store">General Store / Kirana</option>
+                            <option value="Chemist & Pharmacy">Chemist & Pharmacy</option>
+                            <option value="Cafe & Restaurant">Cafe & Restaurant</option>
+                            <option value="Apparel & Textile">Apparel & Textile Shop</option>
+                            <option value="Electronics & Hardware">Electronics & Hardware</option>
+                            <option value="Supermarket">Supermarket / Mart</option>
+                            <option value="Salon & Spa">Salon & Spa</option>
+                            <option value="Services & Logistics">Services & Logistics</option>
+                            <option value="Other">Other Business</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="onboard-biz-phone">Mobile / Phone Number *</label>
+                            <input type="tel" id="onboard-biz-phone" required placeholder="e.g. 9876543210" autocomplete="tel" />
+                        </div>
+                        <div class="form-group">
+                            <label for="onboard-workforce-size">Typical Workforce Size *</label>
+                            <select id="onboard-workforce-size" required>
+                                <option value="1–10">1 – 10 employees</option>
+                                <option value="11–50">11 – 50 employees</option>
+                                <option value="51–100">51 – 100 employees</option>
+                                <option value="100+">100+ employees</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="onboarding-footer">
+                        <button type="submit" class="btn-primary btn-block" style="padding: 0.85rem; font-size: 0.9375rem;">
+                            Continue &rarr;
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2: Success State -->
+            <div class="onboarding-step" id="onboard-step-2">
+                <div class="onboarding-header text-center" style="text-align: center;">
+                    <div class="success-icon" style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
+                    <h1>Setup Complete!</h1>
+                    <p>Welcome to PayRozgar, <strong id="success-biz-name" style="color: var(--primary);">your business</strong>! Your profile is ready.</p>
+                </div>
+                <div class="success-card-body">
+                    <p style="text-align: center; color: var(--text-light); margin-bottom: 1.5rem; font-size: 0.9375rem;">
+                        You are all set to manage daily attendance, overtime, and monthly payroll. Let's add your first employee to get started!
+                    </p>
+                    <div class="onboarding-actions" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <button type="button" class="btn-primary btn-block" id="onboard-add-first-emp-btn" style="padding: 0.85rem; font-size: 0.9375rem;">
+                            + Add Your First Employee
+                        </button>
+                        <button type="button" class="btn-secondary btn-block" id="onboard-go-dashboard-btn" style="padding: 0.75rem;">
+                            Go to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="app">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
                     <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
-                        <rect width="40" height="40" rx="10" fill="url(#gradient)"/>
+                        <rect width="40" height="40" rx="10" fill="#1e293b"/>
                         <path d="M12 20L18 26L28 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <defs>
-                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#6366f1"/>
-                                <stop offset="100%" style="stop-color:#8b5cf6"/>
-                            </linearGradient>
-                        </defs>
                     </svg>
                     <div class="logo-text">
                         <h1>PayRozgar</h1>
                         <span>Payroll Management</span>
                     </div>
                 </div>
+                <button class="btn-secondary back-to-dash-btn" style="width: 100%; margin-top: 1.25rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.875rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back to Dashboard</button>
             </div>
 
             <nav class="sidebar-nav">
-                <button class="nav-link active" data-page="dashboard">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="7" height="7"/>
-                        <rect x="14" y="3" width="7" height="7"/>
-                        <rect x="14" y="14" width="7" height="7"/>
-                        <rect x="3" y="14" width="7" height="7"/>
-                    </svg>
-                    <span>Dashboard</span>
-                </button>
-                <button class="nav-link" data-page="attendance">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2"/>
-                        <line x1="16" y1="2" x2="16" y2="6"/>
-                        <line x1="8" y1="2" x2="8" y2="6"/>
-                        <line x1="3" y1="10" x2="21" y2="10"/>
-                    </svg>
-                    <span>Attendance</span>
-                </button>
-                <button class="nav-link" data-page="employees">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                    <span>Employees</span>
-                </button>
-                <button class="nav-link" data-page="payroll">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="1" x2="12" y2="23"/>
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                    </svg>
-                    <span>Payroll</span>
-                </button>
-                <button class="nav-link" data-page="reports">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="20" x2="18" y2="10"/>
-                        <line x1="12" y1="20" x2="12" y2="4"/>
-                        <line x1="6" y1="20" x2="6" y2="14"/>
-                    </svg>
-                    <span>Reports</span>
-                </button>
+                <fieldset class="nav-group">
+                    <legend class="nav-group-title">MAIN</legend>
+                    <button class="nav-link active" data-page="dashboard">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                        <span>Dashboard</span>
+                    </button>
+                    <button class="nav-link" data-page="attendance">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        <span>Attendance</span>
+                    </button>
+                    <button class="nav-link" data-page="employees">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        <span>Employees</span>
+                    </button>
+                </fieldset>
+
+                <hr class="nav-divider" />
+
+                <fieldset class="nav-group">
+                    <legend class="nav-group-title">PAYROLL</legend>
+                    <button class="nav-link" data-page="payroll">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                        <span>Payroll</span>
+                    </button>
+                    <button class="nav-link" data-page="overtime">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        <span>Overtime</span>
+                    </button>
+                    <button class="nav-link" data-page="advances">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 3L21 7L17 11"/>
+                            <path d="M3 7H21"/>
+                            <path d="M7 21L3 17L7 13"/>
+                            <path d="M21 17H3"/>
+                        </svg>
+                        <span>Advances & Deductions</span>
+                    </button>
+                    <button class="nav-link" data-page="payments">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                        <span>Payments</span>
+                    </button>
+                </fieldset>
+
+                <hr class="nav-divider" />
+
+                <fieldset class="nav-group">
+                    <legend class="nav-group-title">MORE</legend>
+                    <button class="nav-link" data-page="reports">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                        <span>Reports</span>
+                    </button>
+                    <button class="nav-link" data-page="settings">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                        <span>Settings</span>
+                    </button>
+                </fieldset>
             </nav>
 
             <div class="sidebar-footer">
                 <div class="user-profile">
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop" alt="User">
                     <div class="user-info">
-                        <div class="user-name">Rahul Sharma</div>
+                        <div class="user-name" id="sidebar-user-name">Admin</div>
                         <div class="user-role">Admin</div>
                     </div>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -139,176 +262,126 @@
             <section class="page active" id="dashboard">
                 <div class="page-header">
                     <div>
-                        <h1>Dashboard</h1>
-                        <p>Welcome back! Here's your business overview</p>
+                        <h1 id="dash-greeting-title">Monthly Payroll</h1>
+                        <p id="dash-subtitle">Overview and quick actions</p>
                     </div>
-                    <div class="page-actions">
-                        <button class="btn-secondary">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                <polyline points="7 10 12 15 17 10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
-                            Export
+                </div>
+
+                <!-- Primary Summary Block & Mini Cards Grid -->
+                <div class="dashboard-top-grid">
+                    <div class="dashboard-hero">
+                        <div class="dashboard-hero-content">
+                            <span class="dashboard-hero-period">December 2026</span>
+                            <div class="dashboard-hero-label">Total Payable</div>
+                            <div class="dashboard-hero-value" id="dash-total-payable" style="font-size: 2.5rem; font-weight: 800;">₹0</div>
+                            <div class="dashboard-hero-sub" id="dash-payable-sub">Calculated for 8 active shop employees</div>
+                        </div>
+                        <div class="dashboard-hero-action">
+                            <button class="btn-primary" id="dashboard-review-btn" style="padding: 0.85rem 1.75rem; font-size: 0.9375rem;">
+                                Review Payroll &rarr;
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Row: Side-by-Side Mini Cards -->
+                    <div class="mini-cards-grid">
+                        <div class="mini-card">
+                            <div class="mini-card-icon" style="background: var(--primary-light); color: var(--primary);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <div class="mini-card-content">
+                                <div class="mini-card-label">Total Employees</div>
+                                <div class="mini-card-value" id="dash-total-emp">8</div>
+                            </div>
+                        </div>
+
+                        <div class="mini-card">
+                            <div class="mini-card-icon" style="background: var(--warning-light); color: var(--warning);">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div class="mini-card-content">
+                                <div class="mini-card-label">Pending Payments</div>
+                                <div class="mini-card-value" id="dash-pending-payments">₹0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Highlights Row: Today's Attendance & Overtime Badge -->
+                <div class="attendance-highlight-row">
+                    <div class="attendance-highlight-left">
+                        <span class="highlight-title">Today's Attendance:</span>
+                        <div class="attendance-highlights">
+                            <span class="badge badge-present" id="dash-att-present">7 Present</span>
+                            <span class="badge badge-absent" id="dash-att-absent">1 Absent</span>
+                            <span class="badge badge-halfday" id="dash-att-halfday">0 Half Day</span>
+                            <span class="badge badge-leave" id="dash-att-leave">0 On Leave</span>
+                        </div>
+                    </div>
+                    <div class="attendance-highlight-right">
+                        <span class="badge badge-overtime" id="dash-ot-badge">⏱ Overtime: 0 hrs</span>
+                    </div>
+                </div>
+
+                <!-- Action Grid Container -->
+                <div class="quick-actions-card">
+                    <h3 class="quick-actions-title">Quick Actions</h3>
+                    <div class="quick-actions quick-actions-grid">
+                        <button class="quick-action-btn" id="qa-add-employee">
+                            <span class="qa-icon">+</span>
+                            <span>Add Employee</span>
                         </button>
-                        <button class="btn-primary">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="12" y1="5" x2="12" y2="19"/>
+                        <button class="quick-action-btn" id="qa-mark-attendance">
+                            <span class="qa-icon">✓</span>
+                            <span>Mark Attendance</span>
+                        </button>
+                        <button class="quick-action-btn" id="qa-add-overtime">
+                            <span class="qa-icon">⏱</span>
+                            <span>Add Overtime</span>
+                        </button>
+                        <button class="quick-action-btn" id="qa-record-advance">
+                            <span class="qa-icon">💰</span>
+                            <span>Record Advance</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Minimal Preview Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3>Payroll Preview</h3>
+                            <p style="font-size: 0.8125rem; color: var(--text-lighter); margin-top: 0.125rem;">Immediate Net Pay breakdown for active staff</p>
+                        </div>
+                        <button class="btn-primary btn-sm" id="dashboard-review-payroll-link" style="display: inline-flex; align-items: center; gap: 0.375rem;">
+                            <span>Review Payroll</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
                             </svg>
-                            Add Employee
                         </button>
                     </div>
-                </div>
-
-                <!-- Metrics Grid -->
-                <div class="metrics-grid">
-                    <div class="metric-card" style="--delay: 0">
-                        <div class="metric-icon" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <div class="metric-label">Total Employees</div>
-                            <div class="metric-value">8</div>
-                            <div class="metric-change positive">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="18 15 12 9 6 15"/>
-                                </svg>
-                                <span>Active shop workforce</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card" style="--delay: 1">
-                        <div class="metric-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <div class="metric-label">Attendance Rate</div>
-                            <div class="metric-value">87.5%</div>
-                            <div class="metric-change positive">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="18 15 12 9 6 15"/>
-                                </svg>
-                                <span>7 of 8 active today</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card" style="--delay: 2">
-                        <div class="metric-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <line x1="12" y1="1" x2="12" y2="23"/>
-                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <div class="metric-label">This Month Payroll</div>
-                            <div class="metric-value">₹2,78,000</div>
-                            <div class="metric-change">
-                                <span>1 payment pending</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="metric-card" style="--delay: 3">
-                        <div class="metric-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <div class="metric-label">Avg Processing Time</div>
-                            <div class="metric-value">15m</div>
-                            <div class="metric-change positive">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="18 15 12 9 6 15"/>
-                                </svg>
-                                <span>Instant PWA payout</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dashboard Grid -->
-                <div class="dashboard-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Recent Activity</h3>
-                            <button class="btn-text">View All</button>
-                        </div>
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop" alt="" class="activity-avatar">
-                                <div class="activity-content">
-                                    <div class="activity-title">Amit Sharma marked Present</div>
-                                    <div class="activity-time">10 minutes ago</div>
-                                </div>
-                                <span class="badge badge-present">Present</span>
-                            </div>
-                            <div class="activity-item">
-                                <img src="https://images.unsplash.com/photo-1494790108755-2616c0763c04?w=40&h=40&fit=crop" alt="" class="activity-avatar">
-                                <div class="activity-content">
-                                    <div class="activity-title">Priya Mehta marked Absent</div>
-                                    <div class="activity-time">1 hour ago</div>
-                                </div>
-                                <span class="badge badge-absent">Absent</span>
-                            </div>
-                            <div class="activity-item">
-                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop" alt="" class="activity-avatar">
-                                <div class="activity-content">
-                                    <div class="activity-title">Sneha Patel marked Half Day</div>
-                                    <div class="activity-time">3 hours ago</div>
-                                </div>
-                                <span class="badge badge-halfday">Half Day</span>
-                            </div>
-                            <div class="activity-item">
-                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop" alt="" class="activity-avatar">
-                                <div class="activity-content">
-                                    <div class="activity-title">Vikram Singh marked On Leave</div>
-                                    <div class="activity-time">Yesterday</div>
-                                </div>
-                                <span class="badge badge-leave">Leave</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Upcoming Payments</h3>
-                            <button class="btn-text">Manage</button>
-                        </div>
-                        <div class="payment-list">
-                            <div class="payment-item">
-                                <div class="payment-info">
-                                    <div class="payment-title">Monthly Staff Salaries</div>
-                                    <div class="payment-date">Due in 3 days</div>
-                                </div>
-                                <div class="payment-amount">₹2,56,000</div>
-                            </div>
-                            <div class="payment-item">
-                                <div class="payment-info">
-                                    <div class="payment-title">Sales Incentive & Bonus</div>
-                                    <div class="payment-date">Due in 10 days</div>
-                                </div>
-                                <div class="payment-amount">₹22,000</div>
-                            </div>
-                            <div class="payment-item">
-                                <div class="payment-info">
-                                    <div class="payment-title">EPF / ESI Contribution</div>
-                                    <div class="payment-date">Due in 15 days</div>
-                                </div>
-                                <div class="payment-amount">₹14,500</div>
-                            </div>
-                        </div>
+                    <div class="table-container" style="border: none;">
+                        <table class="payroll-preview data-table" id="dashboard-payroll-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee Name</th>
+                                    <th>Net Pay</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamically rendered by app.js -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>
@@ -320,7 +393,8 @@
                         <h1>Attendance Management</h1>
                         <p>Track and manage employee attendance</p>
                     </div>
-                    <div class="page-actions">
+                    <div class="page-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn-primary" id="mark-all-present-btn">✓ Mark All Present</button>
                         <div class="date-picker">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="3" y="4" width="18" height="18" rx="2"/>
@@ -330,7 +404,6 @@
                             </svg>
                             <span>December 15, 2026</span>
                         </div>
-                        <button class="btn-primary">Save Changes</button>
                     </div>
                 </div>
 
@@ -354,94 +427,20 @@
                 </div>
 
                 <div class="table-container">
-                    <table class="data-table">
+                    <table class="data-table" id="attendance-table">
                         <thead>
                             <tr>
                                 <th>Employee</th>
                                 <th>Department</th>
-                                <th>Check In</th>
-                                <th>Check Out</th>
-                                <th>Hours</th>
+                                <th>Clock In</th>
+                                <th>Clock Out</th>
+                                <th>Total Hours</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="employee-cell">
-                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop" alt="">
-                                        <div>
-                                            <div class="employee-name">Amit Sharma</div>
-                                            <div class="employee-id">EMP-001</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>Sales</td>
-                                <td>09:15 AM</td>
-                                <td>06:30 PM</td>
-                                <td>9h 15m</td>
-                                <td><span class="badge badge-success">Present</span></td>
-                                <td>
-                                    <button class="btn-icon">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="1"/>
-                                            <circle cx="12" cy="5" r="1"/>
-                                            <circle cx="12" cy="19" r="1"/>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="employee-cell">
-                                        <img src="https://images.unsplash.com/photo-1494790108755-2616c0763c04?w=32&h=32&fit=crop" alt="">
-                                        <div>
-                                            <div class="employee-name">Priya Mehta</div>
-                                            <div class="employee-id">EMP-002</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>Marketing</td>
-                                <td>—</td>
-                                <td>—</td>
-                                <td>—</td>
-                                <td><span class="badge badge-error">Absent</span></td>
-                                <td>
-                                    <button class="btn-icon">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="1"/>
-                                            <circle cx="12" cy="5" r="1"/>
-                                            <circle cx="12" cy="19" r="1"/>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="employee-cell">
-                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop" alt="">
-                                        <div>
-                                            <div class="employee-name">Sneha Patel</div>
-                                            <div class="employee-id">EMP-003</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>Operations</td>
-                                <td>09:00 AM</td>
-                                <td>02:00 PM</td>
-                                <td>5h 00m</td>
-                                <td><span class="badge badge-warning">Half Day</span></td>
-                                <td>
-                                    <button class="btn-icon">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="1"/>
-                                            <circle cx="12" cy="5" r="1"/>
-                                            <circle cx="12" cy="19" r="1"/>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
+                            <!-- Dynamically rendered by app.js -->
                         </tbody>
                     </table>
                 </div>
@@ -451,26 +450,19 @@
             <section class="page" id="employees">
                 <div class="page-header">
                     <div>
-                        <h1>Employees</h1>
-                        <p>Manage your workforce</p>
+                        <h1>Employees Workforce</h1>
+                        <p>Manage employee records, joining dates, phone numbers, and salary types</p>
                     </div>
                     <div class="page-actions">
-                        <button class="btn-secondary">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                <polyline points="7 10 12 15 17 10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
-                            Export
-                        </button>
-                        <button class="btn-primary">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="12" y1="5" x2="12" y2="19"/>
-                                <line x1="5" y1="12" x2="19" y2="12"/>
-                            </svg>
-                            Add Employee
+                        <button class="btn-primary" onclick="document.getElementById('open-add-emp-btn')?.click()">
+                            + Add Employee
                         </button>
                     </div>
+                </div>
+
+                <!-- Instant Employee Search Bar -->
+                <div style="margin-bottom: 1.5rem;">
+                    <input type="text" id="emp-search" placeholder="Search employees by name or role..." class="form-control" style="max-width: 420px; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 0.75rem; background: var(--surface); color: var(--text); font-size: 0.9375rem;" />
                 </div>
 
                 <div class="employees-grid">
@@ -560,105 +552,260 @@
                 </div>
             </section>
 
-            <!-- Payroll Page -->
+            <!-- Payroll Page (FR-07, FR-08) -->
             <section class="page" id="payroll">
                 <div class="page-header">
                     <div>
-                        <h1>Payroll Management</h1>
-                        <p>Process and manage employee payroll</p>
+                        <h1>Payroll Calculation Engine</h1>
+                        <p>Calculate, finalize, and process shop monthly payouts</p>
                     </div>
-                    <div class="page-actions">
-                        <button class="btn-secondary">Generate Report</button>
-                        <button class="btn-primary" id="open-record-entry-btn">Record Entry</button>
+                    <div class="page-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                        <button class="btn-primary" id="finalize-payroll-btn">Finalize Payroll</button>
                     </div>
                 </div>
 
-                <div class="payroll-summary">
-                    <div class="summary-card">
-                        <div class="summary-label">Total Payable</div>
-                        <div class="summary-value">₹18,45,000</div>
+                <!-- Global Payroll Status UI Stepper -->
+                <div class="payroll-status-stepper-card card" style="margin-bottom: 1.25rem; padding: 1.25rem 1.5rem;">
+                    <div class="stepper-container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                        <div class="stepper-title" style="font-weight: 700; font-size: 0.9375rem; color: var(--text);">
+                            Global Payroll Status:
+                        </div>
+                        <div class="stepper-steps" style="display: flex; align-items: center; gap: 1.25rem; font-size: 0.875rem; font-weight: 600;">
+                            <span class="stepper-step active" id="step-draft">● Draft</span>
+                            <span class="stepper-arrow" style="color: var(--text-lighter);">→</span>
+                            <span class="stepper-step" id="step-finalized">○ Finalized</span>
+                            <span class="stepper-arrow" style="color: var(--text-lighter);">→</span>
+                            <span class="stepper-step" id="step-paid">○ Paid</span>
+                        </div>
                     </div>
-                    <div class="summary-card">
-                        <div class="summary-label">Processed</div>
-                        <div class="summary-value">₹16,20,000</div>
+                </div>
+
+                <!-- Finalized Yellow Warning Banner -->
+                <div class="payroll-warning-banner" id="payroll-finalized-banner" style="display: none; background: #fef3c7; border: 1px solid #f59e0b; border-radius: 0.75rem; padding: 1rem 1.25rem; margin-bottom: 1.25rem; color: #92400e; font-weight: 600; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.25rem;">⚠️</span>
+                        <span>Payroll finalized. Explicit reopen required to edit line-items.</span>
                     </div>
-                    <div class="summary-card">
-                        <div class="summary-label">Pending</div>
-                        <div class="summary-value">₹2,25,000</div>
+                    <button class="btn-secondary btn-sm" id="payroll-reopen-btn" style="background: #ffffff; border-color: #d97706; color: #b45309;">Reopen</button>
+                </div>
+
+                <!-- Summary Bar -->
+                <div class="stats-bar" style="margin-bottom: 1.5rem;">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Monthly Payroll</span>
+                        <span class="stat-value" id="payroll-summary-total">₹0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Base Salary</span>
+                        <span class="stat-value" id="payroll-summary-base">₹0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Additions / OT</span>
+                        <span class="stat-value" id="payroll-summary-additions" style="color: var(--success);">+₹0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Deductions / Advances</span>
+                        <span class="stat-value" id="payroll-summary-deductions" style="color: var(--error);">-₹0</span>
+                    </div>
+                </div>
+
+                <!-- Payroll Engine Data Table -->
+                <div class="table-container">
+                    <div class="card-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);">
+                        <div>
+                            <h3>Employee Payroll Formula Breakdown</h3>
+                            <p style="font-size: 0.8125rem; color: var(--text-lighter); margin-top: 0.125rem;">Net Pay = Base + OT (+) + Additions (+) - Advances (-) - Deductions (-)</p>
+                        </div>
+                        <span class="badge badge-info">Click any row for exact math line-items</span>
+                    </div>
+                    <table class="data-table" id="payroll-engine-table">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Base</th>
+                                <th>OT (+)</th>
+                                <th>Additions (+)</th>
+                                <th>Advances (-)</th>
+                                <th>Deductions (-)</th>
+                                <th>Net Pay</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamically rendered by app.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Overtime Page (FR-04) -->
+            <section class="page" id="overtime">
+                <div class="page-header">
+                    <div>
+                        <h1>Overtime Tracking</h1>
+                        <p>Track extra hours worked, hourly rates, and accumulated overtime payouts</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-primary" id="open-record-ot-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            + Record Overtime
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Overtime Summary Bar -->
+                <div class="stats-bar" style="margin-bottom: 2rem;">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Overtime Hours</span>
+                        <span class="stat-value" id="ot-summary-hours">0 hrs</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Overtime Earnings</span>
+                        <span class="stat-value" id="ot-summary-amount" style="color: var(--accent);">₹0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Staff With Overtime</span>
+                        <span class="stat-value" id="ot-summary-emp-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Default Hourly Rate</span>
+                        <span class="stat-value">₹80/hr</span>
+                    </div>
+                </div>
+
+                <!-- Overtime Table -->
+                <div class="table-container">
+                    <div class="card-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);">
+                        <div>
+                            <h3>Employee Overtime Breakdown</h3>
+                            <p style="font-size: 0.8125rem; color: var(--text-lighter); margin-top: 0.125rem;">Accumulated overtime hours and calculated pay rates</p>
+                        </div>
+                        <span class="badge badge-overtime">Default: ₹80/hr</span>
+                    </div>
+                    <table class="data-table" id="overtime-table">
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Total Hours</th>
+                                <th>Base Rate</th>
+                                <th>Total Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamically rendered by app.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Advances & Deductions Page (FR-06) -->
+            <section class="page" id="advances">
+                <div class="page-header">
+                    <div>
+                        <h1>Audited Financial Adjustments</h1>
+                        <p>Track salary advances, loans, and monthly deductions with mandatory audit notes</p>
+                    </div>
+                    <div class="page-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn-primary" id="open-record-advance-btn">
+                            + Record Advance
+                        </button>
+                        <button class="btn-secondary" id="open-add-deduction-btn">
+                            + Add Deduction
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Two-Column Grid: Left (Advances) | Right (Deductions) -->
+                <div class="adjustments-grid">
+                    <!-- Left Column: Advances Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Salary Advances & Loans</h3>
+                                <p style="font-size: 0.8125rem; color: var(--text-lighter); margin-top: 0.125rem;">Chronological salary advance payouts</p>
+                            </div>
+                            <button class="btn-sm btn-primary" id="open-advance-inline-btn">+ Record Advance</button>
+                        </div>
+                        <div class="table-container" style="border: none;">
+                            <table class="data-table" id="advances-history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Employee</th>
+                                        <th>Amount</th>
+                                        <th>Audit Reason</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamically rendered by app.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Deductions Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Deductions & Penalties</h3>
+                                <p style="font-size: 0.8125rem; color: var(--text-lighter); margin-top: 0.125rem;">Logged payroll deductions and adjustments</p>
+                            </div>
+                            <button class="btn-sm btn-secondary" id="open-deduction-inline-btn">+ Add Deduction</button>
+                        </div>
+                        <div class="table-container" style="border: none;">
+                            <table class="data-table" id="deductions-history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Employee</th>
+                                        <th>Amount</th>
+                                        <th>Audit Reason</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamically rendered by app.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payments Page (FR-08) -->
+            <section class="page" id="payments">
+                <div class="page-header">
+                    <div>
+                        <h1>Completed Payments Audit Log</h1>
+                        <p>Audit trail of completed salary disbursements and payment records</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-secondary" id="export-payments-btn">Export Log</button>
                     </div>
                 </div>
 
                 <div class="table-container">
-                    <table class="data-table">
+                    <div class="card-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);">
+                        <div>
+                            <h3>Payment Audit Trail</h3>
+                            <p style="font-size: 0.8125rem; color: var(--text-lighter); margin-top: 0.125rem;">Chronological record of verified payouts</p>
+                        </div>
+                    </div>
+                    <table class="data-table" id="payments-history-table">
                         <thead>
                             <tr>
-                                <th>Employee</th>
-                                <th>Base Salary</th>
-                                <th>Overtime / Bonus</th>
-                                <th>Deductions</th>
-                                <th>Net Payable</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Employee Name</th>
+                                <th>Amount Paid</th>
+                                <th>Date Paid</th>
+                                <th>Method</th>
+                                <th>Reference / Notes</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="employee-cell">
-                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop" alt="">
-                                        <div>
-                                            <div class="employee-name">Amit Sharma</div>
-                                            <div class="employee-id">EMP-001</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>₹35,000</td>
-                                <td>+₹9,000</td>
-                                <td>-₹1,500</td>
-                                <td><strong>₹42,500</strong></td>
-                                <td><span class="badge badge-success">Paid</span></td>
-                                <td>
-                                    <button class="btn-sm">Payslip</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="employee-cell">
-                                        <img src="https://images.unsplash.com/photo-1494790108755-2616c0763c04?w=32&h=32&fit=crop" alt="">
-                                        <div>
-                                            <div class="employee-name">Priya Mehta</div>
-                                            <div class="employee-id">EMP-002</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>₹45,000</td>
-                                <td>+₹4,000</td>
-                                <td>-₹2,000</td>
-                                <td><strong>₹47,000</strong></td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                    <button class="btn-sm">Process</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="employee-cell">
-                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop" alt="">
-                                        <div>
-                                            <div class="employee-name">Sneha Patel</div>
-                                            <div class="employee-id">EMP-003</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>₹55,000</td>
-                                <td>+₹6,000</td>
-                                <td>-₹2,500</td>
-                                <td><strong>₹58,500</strong></td>
-                                <td><span class="badge badge-success">Paid</span></td>
-                                <td>
-                                    <button class="btn-sm">Payslip</button>
-                                </td>
-                            </tr>
+                            <!-- Dynamically rendered by app.js -->
                         </tbody>
                     </table>
                 </div>
@@ -677,10 +824,69 @@
                 </div>
 
                 <div class="card">
-                    <p style="padding: 2rem; text-align: center; color: #64748b;">Reports and analytics dashboard coming soon...</p>
+                    <p style="padding: 2rem; text-align: center; color: var(--text-light);">Reports and analytics summary report generator.</p>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section class="page" id="settings">
+                <div class="page-header">
+                    <div>
+                        <h1>Settings & Business Profile</h1>
+                        <p>Manage business configuration, shift defaults, and onboarding settings</p>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-header">
+                        <h3>Business Details (FR-01)</h3>
+                        <button class="btn-secondary" id="reopen-onboarding-btn">Edit Business Setup</button>
+                    </div>
+                    <div style="padding: 0.5rem 0;">
+                        <p style="color: var(--text-light); font-size: 0.9375rem;" id="settings-biz-summary">
+                            Configure your business name, category, mobile number, and typical workforce size.
+                        </p>
+                    </div>
                 </div>
             </section>
         </main>
+
+        <!-- Responsive Mobile Bottom-Nav Bar -->
+        <nav class="bottom-nav mobile-bottom-nav" aria-label="Mobile Bottom Navigation">
+            <button class="nav-link active" data-page="dashboard">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                <span>Home</span>
+            </button>
+            <button class="nav-link" data-page="employees">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Staff</span>
+            </button>
+            <button class="nav-link" data-page="attendance">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span>Attendance</span>
+            </button>
+            <button class="nav-link" data-page="payroll">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <span>Pay</span>
+            </button>
+        </nav>
     </div>
     
     <!-- Add Employee Modal -->
@@ -774,6 +980,383 @@
             </form>
         </div>
     </div>
+
+    <!-- Dedicated Record Overtime Modal (FR-04) -->
+    <div class="modal-overlay" id="record-overtime-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Record Overtime (FR-04)</h3>
+                <button class="btn-icon modal-close" id="record-ot-close-btn" aria-label="Close modal" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="record-overtime-form">
+                <div class="form-group">
+                    <label for="ot-emp-select">Select Employee *</label>
+                    <select id="ot-emp-select" required>
+                        <!-- Dynamically populated by JS -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ot-date">Date *</label>
+                        <input type="date" id="ot-date" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ot-hours">OT Hours Worked *</label>
+                        <input type="number" id="ot-hours" step="0.5" min="0.5" max="24" required placeholder="e.g. 2.5" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ot-rate">Hourly Rate (₹/hr) *</label>
+                        <input type="number" id="ot-rate" min="1" step="5" required value="80" placeholder="e.g. 80" />
+                    </div>
+                    <div class="form-group">
+                        <label>Calculated Overtime Pay</label>
+                        <div id="ot-calc-preview" style="padding: 0.75rem 1rem; background: var(--accent-light); color: var(--accent); font-weight: 700; border-radius: 0.625rem; font-size: 1.125rem; text-align: center;">
+                            ₹0
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ot-reason">Reason / Note</label>
+                    <input type="text" id="ot-reason" placeholder="e.g. Festival rush / Store closing / Inventory audit" autocomplete="off" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="record-ot-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Overtime</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- First-Time Onboarding Setup Dialog (FR-01) -->
+    <dialog id="setup-modal" class="fullscreen-modal">
+        <div class="setup-modal-content">
+            <div class="onboarding-header" style="margin-bottom: 1.5rem;">
+                <div class="onboarding-logo" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="10" fill="#1e293b"/>
+                        <path d="M12 20L18 26L28 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text);">PayRozgar</h2>
+                </div>
+                <h1 style="font-size: 1.625rem; font-weight: 800; color: var(--text); margin-bottom: 0.35rem;">Set Up Your Business</h1>
+                <p style="color: var(--text-light); font-size: 0.9375rem;">Enter your business profile to configure shop attendance & monthly payroll.</p>
+            </div>
+            <form id="setup-modal-form">
+                <div class="form-group">
+                    <label for="setup-biz-name">Business Name *</label>
+                    <input type="text" id="setup-biz-name" required placeholder="e.g. Sharma General Store" autocomplete="organization" />
+                </div>
+                <div class="form-group">
+                    <label for="setup-biz-category">Business Category *</label>
+                    <select id="setup-biz-category" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="General Store">General Store</option>
+                        <option value="Chemist">Chemist</option>
+                        <option value="Cafe">Cafe</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="setup-biz-phone">Phone Number *</label>
+                        <input type="tel" id="setup-biz-phone" required placeholder="e.g. 9876543210" autocomplete="tel" />
+                    </div>
+                    <div class="form-group">
+                        <label for="setup-workforce-size">Typical Workforce Size *</label>
+                        <select id="setup-workforce-size" required>
+                            <option value="1-10">1-10</option>
+                            <option value="11-50">11-50</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin-top: 1.5rem; padding-top: 1rem;">
+                    <button type="submit" class="btn-primary btn-block" style="padding: 0.85rem; font-size: 1rem; font-weight: 700;">
+                        Save & Continue &rarr;
+                    </button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Native Record Overtime Dialog (FR-04) -->
+    <dialog id="record-ot-modal" class="fullscreen-modal">
+        <div class="setup-modal-content">
+            <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text);">Record Overtime (FR-04)</h3>
+                <button class="btn-icon modal-close" id="record-ot-dialog-close-btn" aria-label="Close modal" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="record-ot-dialog-form">
+                <div class="form-group">
+                    <label for="ot-dialog-emp-select">Select Employee *</label>
+                    <select id="ot-dialog-emp-select" required>
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ot-dialog-date">Date *</label>
+                        <input type="date" id="ot-dialog-date" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="ot-dialog-hours">OT Hours *</label>
+                        <input type="number" id="ot-dialog-hours" step="0.5" min="0.5" max="24" required placeholder="e.g. 2.5" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ot-dialog-rate">Hourly Rate (₹/hr) *</label>
+                        <input type="number" id="ot-dialog-rate" min="1" step="5" required value="80" placeholder="80" />
+                    </div>
+                    <div class="form-group">
+                        <label>Calculated Amount</label>
+                        <div id="ot-dialog-calc-preview" style="padding: 0.75rem 1rem; background: var(--accent-light); color: var(--accent); font-weight: 700; border-radius: 0.625rem; font-size: 1.125rem; text-align: center;">
+                            ₹0
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ot-dialog-reason">Reason / Note</label>
+                    <input type="text" id="ot-dialog-reason" placeholder="e.g. Festival rush sales" autocomplete="off" />
+                </div>
+                <div class="modal-footer" style="margin-top: 1.5rem; padding-top: 1rem;">
+                    <button type="button" class="btn-secondary" id="record-ot-dialog-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Overtime</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Unified Financial Adjustment Dialog (FR-06) -->
+    <dialog id="adjustment-modal" class="fullscreen-modal">
+        <div class="setup-modal-content">
+            <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                <h3 id="adjustment-modal-title" style="font-size: 1.25rem; font-weight: 700; color: var(--text);">Record Financial Adjustment</h3>
+                <button class="btn-icon modal-close" id="adj-dialog-close-btn" aria-label="Close modal" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="adjustment-form">
+                <input type="hidden" id="adj-type" value="advance" />
+                <div class="form-group">
+                    <label for="adj-emp-select">Select Employee *</label>
+                    <select id="adj-emp-select" required>
+                        <!-- Dynamically populated by JS -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="adj-amount">Amount (₹) *</label>
+                        <input type="number" id="adj-amount" required min="1" step="100" placeholder="e.g. 2000" />
+                    </div>
+                    <div class="form-group">
+                        <label for="adj-date">Date *</label>
+                        <input type="date" id="adj-date" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="adj-reason">Audit Reason & Note * (Required for audit log)</label>
+                    <input type="text" id="adj-reason" required placeholder="e.g. Emergency family medical advance / Uniform fee deduction" autocomplete="off" />
+                </div>
+                <div class="modal-footer" style="margin-top: 1.5rem; padding-top: 1rem;">
+                    <button type="button" class="btn-secondary" id="adj-dialog-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn-primary" id="adj-dialog-submit-btn">Save Adjustment</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Line-Item Math Breakdown Modal (FR-07) -->
+    <dialog id="payroll-breakdown-modal" class="fullscreen-modal">
+        <div class="setup-modal-content">
+            <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+                <div>
+                    <h3 id="breakdown-emp-name" style="font-size: 1.25rem; font-weight: 700; color: var(--text);">Employee Math Breakdown</h3>
+                    <p id="breakdown-emp-id" style="font-size: 0.8125rem; color: var(--text-lighter);">Line-item calculation details</p>
+                </div>
+                <button class="btn-icon modal-close" id="breakdown-modal-close-btn" aria-label="Close modal" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="breakdown-card" style="background: var(--bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1.25rem;">
+                <div style="font-size: 0.8125rem; text-transform: uppercase; font-weight: 700; color: var(--text-lighter); letter-spacing: 0.05em; margin-bottom: 0.75rem;">Formula Line Items</div>
+                <div style="display: flex; flex-direction: column; gap: 0.625rem; font-size: 0.9375rem;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Base Salary</span>
+                        <span id="bm-base" style="font-weight: 600;">₹0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: var(--success, #10b981);">
+                        <span>Overtime Pay (OT +)</span>
+                        <span id="bm-ot" style="font-weight: 600;">+₹0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: var(--success, #10b981);">
+                        <span>Bonuses & Additions (+)</span>
+                        <span id="bm-additions" style="font-weight: 600;">+₹0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: var(--error, #ef4444);">
+                        <span>Salary Advances (-)</span>
+                        <span id="bm-advances" style="font-weight: 600;">-₹0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: var(--error, #ef4444);">
+                        <span>Deductions & Penalties (-)</span>
+                        <span id="bm-deductions" style="font-weight: 600;">-₹0</span>
+                    </div>
+                    <hr style="border: 0; height: 1px; background: var(--border); margin: 0.5rem 0;" />
+                    <div style="display: flex; justify-content: space-between; font-size: 1.125rem; font-weight: 800; color: var(--text);">
+                        <span>Calculated Net Pay</span>
+                        <span id="bm-net">₹0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="padding-top: 0.5rem;">
+                <button type="button" class="btn-secondary btn-block" id="breakdown-modal-done-btn">Close Breakdown</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Shareable Digital Pay Statement Receipt Dialog (FR-09) -->
+    <dialog id="payslip-modal" class="fullscreen-modal payslip-dialog">
+        <div class="setup-modal-content" style="max-width: 480px; padding: 1.5rem; margin: 0 auto;">
+            <div class="payslip-header-actions" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <button class="btn-text modal-close" id="payslip-close-btn" aria-label="Close payslip" type="button" style="padding: 0; display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-light); font-weight: 600;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back
+                </button>
+                <span class="badge badge-info" style="font-weight: 700;">PAY STATEMENT</span>
+            </div>
+
+            <!-- Receipt Container -->
+            <div class="payslip-content" id="printable-payslip-content">
+                <!-- Receipt Header -->
+                <div class="payslip-receipt-header" style="text-align: center; margin-bottom: 1rem;">
+                    <div style="font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; color: #0f172a;" id="ps-biz-name">PayRozgar Shop</div>
+                    <div style="font-size: 0.8125rem; color: #475569;" id="ps-biz-sub">General Store • Phone: 9876543210</div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.25rem;">Pay Period: 1 Dec – 31 Dec 2026</div>
+                </div>
+
+                <hr class="dashed" />
+
+                <!-- Employee Header Details -->
+                <div class="payslip-receipt-emp" style="font-size: 0.875rem; margin-bottom: 0.75rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                        <span style="color: #64748b;">Employee:</span>
+                        <strong style="color: #0f172a;" id="ps-emp-name">Amit Sharma</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                        <span style="color: #64748b;">Employee ID / Dept:</span>
+                        <span style="font-family: monospace; color: #334155;" id="ps-emp-id">EMP-001 • Sales</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #64748b;">Statement Date:</span>
+                        <span style="font-family: monospace; color: #334155;" id="ps-date">19 Dec 2026</span>
+                    </div>
+                </div>
+
+                <hr class="dashed" />
+
+                <!-- Earnings Section -->
+                <div class="payslip-section" style="margin-bottom: 0.75rem;">
+                    <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em; margin-bottom: 0.5rem;">1. EARNINGS</div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.35rem;">
+                        <span>Base Monthly Salary</span>
+                        <span class="mono-amount" id="ps-base" style="font-family: monospace; font-weight: 600;">₹35,000</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.35rem; color: #15803d;">
+                        <span>Overtime Pay (OT)</span>
+                        <span class="mono-amount" id="ps-ot" style="font-family: monospace; font-weight: 600;">+₹4,000</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.875rem; font-weight: 700; background: #f8fafc; padding: 0.35rem 0.5rem; border-radius: 0.375rem;">
+                        <span>GROSS EARNINGS</span>
+                        <span class="mono-amount" id="ps-tot-earnings" style="font-family: monospace;">₹39,000</span>
+                    </div>
+                </div>
+
+                <!-- Deductions Section -->
+                <div class="payslip-section" style="margin-bottom: 0.75rem;">
+                    <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em; margin-bottom: 0.5rem;">2. DEDUCTIONS & ADVANCES</div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.35rem; color: #b91c1c;">
+                        <span>Salary Advance / Loan</span>
+                        <span class="mono-amount" id="ps-advance" style="font-family: monospace; font-weight: 600;">-₹1,500</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.35rem; color: #b91c1c;">
+                        <span>Statutory Tax / Deductions</span>
+                        <span class="mono-amount" id="ps-tax" style="font-family: monospace; font-weight: 600;">-₹0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.875rem; font-weight: 700; background: #f8fafc; padding: 0.35rem 0.5rem; border-radius: 0.375rem;">
+                        <span>TOTAL DEDUCTIONS</span>
+                        <span class="mono-amount" id="ps-tot-deductions" style="font-family: monospace;">-₹1,500</span>
+                    </div>
+                </div>
+
+                <hr class="dashed" />
+
+                <!-- NET PAY Section -->
+                <div class="payslip-net-pay" style="text-align: center; padding: 0.75rem 0; background: #0f172a; color: #ffffff; border-radius: 0.5rem; margin-bottom: 0.75rem;">
+                    <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85;">NET PAYABLE AMOUNT</div>
+                    <div style="font-family: monospace, Courier, sans-serif; font-size: 1.875rem; font-weight: 900; color: #38bdf8; margin-top: 0.25rem;" id="ps-net-pay">
+                        ₹37,500
+                    </div>
+                </div>
+
+                <hr class="dashed" />
+
+                <!-- Attendance Summary at Bottom -->
+                <div class="payslip-attendance-bottom" style="font-size: 0.8125rem; color: #475569; margin-top: 0.5rem;">
+                    <div style="font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #64748b; margin-bottom: 0.35rem;">ATTENDANCE SUMMARY</div>
+                    <div style="display: flex; justify-content: space-between; font-family: monospace;">
+                        <span>Days Present: <strong id="ps-att-present" style="color:#0f172a;">26 days</strong></span>
+                        <span>Days Absent: <strong id="ps-att-absent" style="color:#0f172a;">2 days</strong></span>
+                        <span>OT Hours: <strong id="ps-ot-hours" style="color:#0f172a;">50 hrs</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Receipt Actions (Hidden during print) -->
+            <div class="payslip-actions" style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
+                <button class="btn-secondary" id="payslip-share-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18" cy="5" r="3"/>
+                        <circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                    Share
+                </button>
+                <button class="btn-primary" id="payslip-download-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+        </div>
+    </dialog>
 
     <script src="app.js"></script>
 </body>
