@@ -23,7 +23,8 @@ class PayRozgar {
         name: '',
         category: '',
         phone: '',
-        workforceSize: ''
+        workforceSize: '',
+        pin: ''
       },
       overtimeLog: [],
       adjustmentsLog: [
@@ -238,6 +239,29 @@ class PayRozgar {
     };
   }
 
+  get activeEmployees() {
+    return (this.state.employees || []).filter(emp => emp.status !== 'inactive');
+  }
+
+  toggleEmployeeStatus(empId) {
+    const emp = this.state.employees.find(e => e.id === empId);
+    if (!emp) return;
+
+    emp.status = emp.status === 'inactive' ? 'active' : 'inactive';
+    this.saveState();
+
+    this.renderEmployeesGrid();
+    this.renderAttendanceTable();
+    this.renderPayrollTable();
+    this.renderOvertimeTable();
+    this.renderAdjustments();
+    this.renderDashboardMetrics();
+    this.updateStatsBar();
+
+    const actionText = emp.status === 'inactive' ? 'deactivated' : 'activated';
+    this.showToast(`${emp.name} is now ${actionText}.`, 'info');
+  }
+
   loadState() {
     try {
       const savedState = localStorage.getItem(this.STORAGE_KEY);
@@ -266,6 +290,9 @@ class PayRozgar {
   init() {
     this.initTheme();
     this.createToastContainer();
+    this.setupAuthModal();
+    this.setupChangePinForm();
+    this.setupProfileDropdown();
     this.setupNavigation();
     this.setupQuickActions();
     this.setupOnboarding();
@@ -289,7 +316,21 @@ class PayRozgar {
     if (markAllBtn) {
       markAllBtn.addEventListener('click', () => this.markAllPresent());
     }
+
     this.loadBusinessProfile();
+    const pin = this.state.businessDetails?.pin;
+    const hasPin = !!(this.state.businessDetails && pin && pin.trim() !== '');
+
+    const authModal = document.getElementById('auth-modal');
+    if (hasPin && authModal && authModal.showModal) {
+      this.isLocked = true;
+      try {
+        authModal.showModal();
+      } catch (err) {
+        authModal.classList.add('active');
+      }
+    }
+
     this.renderDashboardMetrics();
     this.renderAttendanceTable();
     this.renderEmployeesGrid();
@@ -367,26 +408,163 @@ class PayRozgar {
     const reopenBtn = document.getElementById('reopen-onboarding-btn');
     if (reopenBtn) {
       reopenBtn.addEventListener('click', () => {
-        const overlay = document.getElementById('onboarding-overlay');
-        const step1 = document.getElementById('onboard-step-1');
-        const step2 = document.getElementById('onboard-step-2');
-
+        const setupModal = document.getElementById('setup-modal');
+        
+        // Pre-fill the form with existing data
         try {
           const saved = localStorage.getItem(this.BIZ_STORAGE_KEY);
           if (saved) {
             const profile = JSON.parse(saved);
             if (profile) {
-              if (document.getElementById('onboard-biz-name')) document.getElementById('onboard-biz-name').value = profile.name || '';
-              if (document.getElementById('onboard-biz-category')) document.getElementById('onboard-biz-category').value = profile.category || '';
-              if (document.getElementById('onboard-biz-phone')) document.getElementById('onboard-biz-phone').value = profile.phone || '';
-              if (document.getElementById('onboard-workforce-size')) document.getElementById('onboard-workforce-size').value = profile.workforceSize || '1–10';
+              if (document.getElementById('setup-biz-name')) document.getElementById('setup-biz-name').value = profile.name || '';
+              if (document.getElementById('setup-biz-category')) document.getElementById('setup-biz-category').value = profile.category || '';
+              if (document.getElementById('setup-biz-phone')) document.getElementById('setup-biz-phone').value = profile.phone || '';
+              if (document.getElementById('setup-workforce-size')) document.getElementById('setup-workforce-size').value = profile.workforceSize || '1-10';
             }
           }
         } catch (e) {}
 
-        if (overlay) overlay.classList.remove('hidden');
-        if (step1) step1.classList.add('active');
-        if (step2) step2.classList.remove('active');
+        // Open the native dialog
+        if (setupModal && setupModal.showModal) {
+          try {
+            setupModal.showModal();
+          } catch(err) {
+            setupModal.classList.add('active');
+          }
+        }
+      });
+    }
+  }
+
+  setupAuthModal() {
+    const authModal = document.getElementById('auth-modal');
+    const authForm = document.getElementById('auth-modal-form');
+    const pinInput = document.getElementById('auth-pin-input');
+    const errorMsg = document.getElementById('auth-error-msg');
+    const factoryResetBtn = document.getElementById('factory-reset-btn');
+
+    if (factoryResetBtn) {
+      factoryResetBtn.addEventListener('click', () => {
+        const warning = "WARNING: This will permanently delete all local payroll data, employee records, and business settings from this device so you can start a new business. This cannot be undone.\n\nAre you absolutely sure?";
+        if (window.confirm(warning)) {
+          // Clear all local storage associated with the app
+          localStorage.clear();
+          // Reload the page to trigger the first-time setup flow
+          window.location.reload();
+        }
+      });
+    }
+
+    if (!authModal || !authForm) return;
+
+    authModal.addEventListener('cancel', (e) => {
+      if (this.isLocked) {
+        e.preventDefault();
+      }
+    });
+
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const enteredPin = pinInput?.value.trim() || '';
+      const storedPin = this.state.businessDetails?.pin || '';
+
+      const encodedEntered = btoa(enteredPin);
+
+      let isValid = (encodedEntered === storedPin);
+      if (!isValid && storedPin) {
+        try {
+          isValid = (atob(storedPin) === enteredPin);
+        } catch (ex) {
+          isValid = (storedPin === enteredPin);
+        }
+      }
+
+      if (isValid) {
+        this.isLocked = false;
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (pinInput) pinInput.value = '';
+        if (authModal.close) {
+          authModal.close();
+        } else {
+          authModal.classList.remove('active');
+        }
+      } else {
+        if (errorMsg) errorMsg.style.display = 'block';
+        if (pinInput) {
+          pinInput.value = '';
+          pinInput.focus();
+        }
+      }
+    });
+  }
+
+  setupChangePinForm() {
+    const form = document.getElementById('change-pin-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('new-auth-pin');
+      const pinValue = input?.value.trim();
+
+      if (!pinValue || pinValue.length !== 4) {
+        this.showToast('Please enter a valid 4-digit PIN.', 'warning');
+        return;
+      }
+
+      if (!this.state.businessDetails) {
+        this.state.businessDetails = {};
+      }
+
+      this.state.businessDetails.pin = btoa(pinValue);
+
+      this.saveState();
+      try {
+        localStorage.setItem(this.BIZ_STORAGE_KEY, JSON.stringify(this.state.businessDetails));
+      } catch (err) {}
+
+      form.reset();
+      this.showToast('Security PIN updated successfully.', 'success');
+    });
+  }
+
+  setupProfileDropdown() {
+    const profileBtn = document.getElementById('user-profile-btn');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // Toggle dropdown visibility
+    if (profileBtn && profileDropdown) {
+      profileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileDropdown.style.display = profileDropdown.style.display === 'none' ? 'flex' : 'none';
+      });
+    }
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', () => {
+      if (profileDropdown) profileDropdown.style.display = 'none';
+    });
+
+    // Logout button forces the Auth PIN modal to reappear
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        profileDropdown.style.display = 'none';
+        const authModal = document.getElementById('auth-modal');
+        if (authModal && authModal.showModal) {
+          this.isLocked = true;
+          // Clear the PIN input field so it's empty
+          const pinInput = document.getElementById('auth-pin-input');
+          if (pinInput) pinInput.value = '';
+          try {
+            authModal.showModal();
+          } catch (err) {
+            authModal.classList.add('active');
+          }
+        } else {
+          // Fallback: reload page to trigger auth lock
+          window.location.reload();
+        }
       });
     }
   }
@@ -396,15 +574,31 @@ class PayRozgar {
       const saved = localStorage.getItem(this.BIZ_STORAGE_KEY);
       if (saved) {
         const profile = JSON.parse(saved);
-        if (profile && profile.name) {
-          this.applyBusinessProfile(profile);
+        if (profile && (profile.name || profile.pin)) {
+          this.state.businessDetails = { ...this.state.businessDetails, ...profile };
+          this.saveState();
+          try {
+            localStorage.setItem(this.BIZ_STORAGE_KEY, JSON.stringify(this.state.businessDetails));
+          } catch (e) {}
+          this.applyBusinessProfile(this.state.businessDetails);
           this.hideOnboardingOverlay();
-          return profile;
+          return this.state.businessDetails;
         }
       }
     } catch (e) {
       console.warn('Could not load business profile:', e);
     }
+
+    if (this.state.businessDetails && (this.state.businessDetails.name || this.state.businessDetails.pin)) {
+      this.saveState();
+      try {
+        localStorage.setItem(this.BIZ_STORAGE_KEY, JSON.stringify(this.state.businessDetails));
+      } catch (e) {}
+      this.applyBusinessProfile(this.state.businessDetails);
+      this.hideOnboardingOverlay();
+      return this.state.businessDetails;
+    }
+
     return null;
   }
 
@@ -431,14 +625,18 @@ class PayRozgar {
         const category = document.getElementById('setup-biz-category')?.value;
         const phone = document.getElementById('setup-biz-phone')?.value.trim();
         const workforceSize = document.getElementById('setup-workforce-size')?.value;
+        const rawPin = document.getElementById('setup-biz-pin')?.value.trim();
 
         if (!name || !category || !phone || !workforceSize) return;
+
+        const pin = rawPin ? btoa(rawPin) : (this.state.businessDetails?.pin || '');
 
         this.state.businessDetails = {
           name,
           category,
           phone,
           workforceSize,
+          pin,
           createdAt: new Date().toISOString()
         };
 
@@ -467,8 +665,12 @@ class PayRozgar {
   applyBusinessProfile(profile) {
     if (!profile) return;
 
-    this.state.businessDetails = profile;
+    this.state.businessDetails = { ...this.state.businessDetails, ...profile };
     this.saveState();
+
+    try {
+      localStorage.setItem(this.BIZ_STORAGE_KEY, JSON.stringify(this.state.businessDetails));
+    } catch (e) {}
 
     // Dynamically update dashboard title to include business name
     const greetingTitle = document.getElementById('dash-greeting-title');
@@ -914,7 +1116,7 @@ class PayRozgar {
     const sumAmountEl = document.getElementById('ot-summary-amount');
     const sumCountEl = document.getElementById('ot-summary-emp-count');
 
-    const employees = this.state.employees || [];
+    const employees = this.activeEmployees;
     let totalHours = 0;
     let totalAmount = 0;
     let empCount = 0;
@@ -1322,7 +1524,7 @@ class PayRozgar {
     const attLeaveEl = document.getElementById('dash-att-leave');
     const otBadgeEl = document.getElementById('dash-ot-badge');
 
-    const employees = this.state.employees || [];
+    const employees = this.activeEmployees;
     const totalEmp = employees.length;
 
     let totalPayable = 0;
@@ -1394,7 +1596,7 @@ class PayRozgar {
 
     tbody.innerHTML = '';
 
-    this.state.employees.forEach(emp => {
+    this.activeEmployees.forEach(emp => {
       const tr = document.createElement('tr');
       tr.setAttribute('data-emp-id', emp.id);
 
@@ -1458,7 +1660,28 @@ class PayRozgar {
     const emp = this.state.employees.find(e => e.id === empId);
     if (!emp) return;
 
-    if (emp.status === status) return; // Status unchanged
+    if (!this.state.attendanceHistory) {
+      this.state.attendanceHistory = [];
+    }
+
+    const today = new Date().toISOString().split('T')[0];
+    const existingIndex = this.state.attendanceHistory.findIndex(
+      rec => rec.empId === empId && rec.date === today
+    );
+
+    const isEdit = existingIndex !== -1;
+
+    if (isEdit) {
+      this.state.attendanceHistory[existingIndex].status = status;
+      this.state.attendanceHistory[existingIndex].timestamp = new Date().toISOString();
+    } else {
+      this.state.attendanceHistory.push({
+        empId,
+        date: today,
+        status,
+        timestamp: new Date().toISOString()
+      });
+    }
 
     emp.status = status;
 
@@ -1488,23 +1711,27 @@ class PayRozgar {
     this.updateStatsBar();
 
     // 3. Trigger Toast Notification
-    const titles = {
-      present: 'Present',
-      absent: 'Absent',
-      halfday: 'Half Day',
-      leave: 'On Leave'
-    };
-    const toastTypes = {
-      present: 'success',
-      absent: 'error',
-      halfday: 'warning',
-      leave: 'info'
-    };
+    if (isEdit) {
+      this.showToast('Updated attendance record for today', 'info');
+    } else {
+      const titles = {
+        present: 'Present',
+        absent: 'Absent',
+        halfday: 'Half Day',
+        leave: 'On Leave'
+      };
+      const toastTypes = {
+        present: 'success',
+        absent: 'error',
+        halfday: 'warning',
+        leave: 'info'
+      };
 
-    this.showToast(
-      `${emp.name} marked as ${titles[status]}`,
-      toastTypes[status] || 'info'
-    );
+      this.showToast(
+        `${emp.name} marked as ${titles[status] || status}`,
+        toastTypes[status] || 'info'
+      );
+    }
   }
 
   markAllPresent() {
@@ -1525,7 +1752,7 @@ class PayRozgar {
 
   updateStatsBar() {
     const counts = { present: 0, absent: 0, halfday: 0, leave: 0 };
-    this.state.employees.forEach(emp => {
+    this.activeEmployees.forEach(emp => {
       if (counts[emp.status] !== undefined) {
         counts[emp.status]++;
       }
@@ -1591,7 +1818,12 @@ class PayRozgar {
             <div class="label" style="font-size:0.7rem; color:var(--text-lighter);">Base Salary</div>
             <div class="value" style="font-weight:700; color:var(--text);">${this.formatCurrency(emp.salary)}</div>
           </div>
-          <button class="btn-sm view-emp-payslip-btn" data-emp-id="${emp.id}">Payslip</button>
+          <div style="display:flex; gap:0.35rem; align-items:center;">
+            <button class="btn-sm view-emp-payslip-btn" data-emp-id="${emp.id}">Payslip</button>
+            <button class="btn-text toggle-emp-status-btn" data-emp-id="${emp.id}" style="color:${isActive ? 'var(--error)' : 'var(--success)'}; font-size:0.75rem;">
+              ${isActive ? 'Deactivate' : 'Activate'}
+            </button>
+          </div>
         </div>
       `;
 
@@ -1600,6 +1832,14 @@ class PayRozgar {
         payslipBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           this.generatePayslip(emp.id);
+        });
+      }
+
+      const toggleBtn = card.querySelector('.toggle-emp-status-btn');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleEmployeeStatus(emp.id);
         });
       }
 
@@ -1725,7 +1965,7 @@ class PayRozgar {
     let totalAdvances = 0;
     let totalDeductions = 0;
 
-    this.state.employees.forEach(emp => {
+    this.activeEmployees.forEach(emp => {
       const base = emp.salary || 0;
       const ot = emp.overtime || 0;
       const additions = emp.additions || 0;

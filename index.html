@@ -120,7 +120,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                <div class="user-profile">
+                <div class="user-profile" id="user-profile-btn">
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop" alt="User">
                     <div class="user-info">
                         <div class="user-name" id="sidebar-user-name">Admin</div>
@@ -129,6 +129,16 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="6 9 12 15 18 9"/>
                     </svg>
+                </div>
+                <div id="profile-dropdown" style="display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 0.5rem; margin-top: 0.5rem; padding: 0.25rem; box-shadow: var(--shadow-lg);">
+                    <button id="logout-btn" class="btn-text" style="width: 100%; text-align: left; color: var(--error); padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Lock App / Logout
+                    </button>
                 </div>
             </div>
         </aside>
@@ -417,7 +427,10 @@
                                 <div class="label">Salary</div>
                                 <div class="value">₹15,000/mo</div>
                             </div>
-                            <button class="btn-sm">View</button>
+                            <div style="display: flex; gap: 0.35rem; align-items: center;">
+                                <button class="btn-sm">View</button>
+                                <button class="btn-text" style="color: var(--error);">Deactivate</button>
+                            </div>
                         </div>
                     </div>
 
@@ -445,7 +458,10 @@
                                 <div class="label">Salary</div>
                                 <div class="value">₹35,000/mo</div>
                             </div>
-                            <button class="btn-sm">View</button>
+                            <div style="display: flex; gap: 0.35rem; align-items: center;">
+                                <button class="btn-sm">View</button>
+                                <button class="btn-text" style="color: var(--error);">Deactivate</button>
+                            </div>
                         </div>
                     </div>
 
@@ -473,7 +489,10 @@
                                 <div class="label">Salary</div>
                                 <div class="value">₹45,000/mo</div>
                             </div>
-                            <button class="btn-sm">View</button>
+                            <div style="display: flex; gap: 0.35rem; align-items: center;">
+                                <button class="btn-sm">View</button>
+                                <button class="btn-text" style="color: var(--error);">Deactivate</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -769,6 +788,37 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- Secondary Grid for Upcoming Modules -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Monthly Tax Summary (PDF)</h3>
+                            <span class="badge badge-primary">Upcoming</span>
+                        </div>
+                        <p style="color: var(--text-light); font-size: 0.875rem; line-height: 1.5;">
+                            Automated tax estimation and downloadable monthly PDF reports for employee tax filings.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Overtime Expense Analysis</h3>
+                            <span class="badge badge-primary">Upcoming</span>
+                        </div>
+                        <p style="color: var(--text-light); font-size: 0.875rem; line-height: 1.5;">
+                            Detailed breakdown of total overtime expenditure and hourly trends across departments.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Attendance Deficit Tracker</h3>
+                            <span class="badge badge-primary">Upcoming</span>
+                        </div>
+                        <p style="color: var(--text-light); font-size: 0.875rem; line-height: 1.5;">
+                            Track work-hour shortfalls, unexcused absences, and automatic leave deduction calculations.
+                        </p>
+                    </div>
+                </div>
             </section>
 
             <!-- Settings Page -->
@@ -789,6 +839,20 @@
                             Configure your business name, category, mobile number, and typical workforce size.
                         </p>
                     </div>
+                </div>
+
+                <!-- Security & Authentication Settings -->
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-header">
+                        <h3>Security & Authentication</h3>
+                    </div>
+                    <form id="change-pin-form" style="max-width: 400px; padding: 0.5rem 0;">
+                        <div class="form-group" style="margin-bottom: 1.25rem;">
+                            <label for="new-auth-pin" style="font-weight: 600; font-size: 0.875rem; color: var(--text-light); display: block; margin-bottom: 0.5rem;">Set/Change 4-Digit Owner PIN</label>
+                            <input type="password" id="new-auth-pin" maxlength="4" pattern="\d{4}" inputmode="numeric" required placeholder="e.g. 1234" autocomplete="off" style="padding: 0.75rem;" />
+                        </div>
+                        <button type="submit" class="btn-primary">Save PIN</button>
+                    </form>
                 </div>
                 <div class="card" style="padding: 3rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
                     <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto;">
@@ -1031,6 +1095,10 @@
                             <option value="11-50">11-50</option>
                         </select>
                     </div>
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="setup-biz-pin">Set 4-Digit Owner PIN *</label>
+                    <input type="password" id="setup-biz-pin" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" required placeholder="e.g. 1234" autocomplete="off" />
                 </div>
                 <div class="modal-footer" style="margin-top: 1.5rem; padding-top: 1rem;">
                     <button type="submit" class="btn-primary btn-block" style="padding: 0.85rem; font-size: 1rem; font-weight: 700;">
@@ -1310,6 +1378,36 @@
                     Download PDF
                 </button>
             </div>
+        </div>
+    </dialog>
+
+    <!-- Fullscreen Owner Authentication Dialog -->
+    <dialog id="auth-modal" class="fullscreen-modal">
+        <div class="setup-modal-content" style="max-width: 420px; padding: 2rem; text-align: center;">
+            <div class="onboarding-header" style="margin-bottom: 1.5rem;">
+                <div class="onboarding-logo" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="10" fill="#1e293b"/>
+                        <path d="M12 20L18 26L28 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text);">PayRozgar</h2>
+                </div>
+                <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 0.35rem;">Owner Verification</h1>
+                <p style="color: var(--text-light); font-size: 0.875rem;">Enter your 4-digit PIN to access business dashboard & payroll details.</p>
+            </div>
+            <form id="auth-modal-form">
+                <div class="form-group" style="margin-bottom: 1.25rem;">
+                    <label for="auth-pin-input" style="font-weight: 600; font-size: 0.875rem; color: var(--text-light); display: block; margin-bottom: 0.5rem;">4-Digit PIN</label>
+                    <input type="password" id="auth-pin-input" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" required placeholder="••••" autocomplete="off" style="font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem; padding: 0.75rem;" />
+                </div>
+                <div id="auth-error-msg" style="color: var(--error); font-size: 0.8125rem; font-weight: 600; margin-bottom: 1rem; display: none;">Invalid PIN. Please try again.</div>
+                <button type="submit" id="auth-unlock-btn" class="btn-primary btn-block" style="padding: 0.85rem; font-size: 1rem; font-weight: 700; width: 100%;">
+                    Unlock PayRozgar
+                </button>
+                <button type="button" id="factory-reset-btn" class="btn-text" style="width: 100%; text-align: center; color: var(--text-light); margin-top: 1.5rem; font-size: 0.875rem; text-decoration: underline;">
+                    Forgot PIN / Start New Business
+                </button>
+            </form>
         </div>
     </dialog>
 

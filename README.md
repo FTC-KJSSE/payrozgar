@@ -25,3 +25,8 @@ PayRozgar/
 ├── manifest.json       # PWA configuration and mobile icons
 ├── sw.js               # Service Worker for offline caching
 └── README.md           # Documentation
+```
+
+### Known Limitations (MVP)
+
+Data Scoping: This MVP uses a single-tenant architecture. All data is scoped to two global localStorage keys (`payrozgar_app_state_v2` and `payrozgar_business_profile_v1`). Multi-tenant switching (managing multiple unrelated shops on one device) is deferred to V2.
