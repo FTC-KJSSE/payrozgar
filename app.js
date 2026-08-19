@@ -60,7 +60,7 @@ class PayRozgar {
           id: 'PAY-1001',
           empId: 'EMP-001',
           empName: 'Amit Sharma',
-          empPhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
+          empPhoto: `https://ui-avatars.com/api/?name=${encodeURIComponent('Amit Sharma')}&background=random&color=fff&bold=true`,
           amount: 37500,
           datePaid: '2026-12-01',
           method: 'UPI',
@@ -70,7 +70,7 @@ class PayRozgar {
           id: 'PAY-1002',
           empId: 'EMP-003',
           empName: 'Sneha Patel',
-          empPhoto: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
+          empPhoto: `https://ui-avatars.com/api/?name=${encodeURIComponent('Sneha Patel')}&background=random&color=fff&bold=true`,
           amount: 29500,
           datePaid: '2026-12-01',
           method: 'Bank Transfer',
@@ -80,7 +80,7 @@ class PayRozgar {
           id: 'PAY-1003',
           empId: 'EMP-005',
           empName: 'Rajesh Kumar',
-          empPhoto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop',
+          empPhoto: `https://ui-avatars.com/api/?name=${encodeURIComponent('Rajesh Kumar')}&background=random&color=fff&bold=true`,
           amount: 26000,
           datePaid: '2026-12-01',
           method: 'Cash',
@@ -90,7 +90,7 @@ class PayRozgar {
           id: 'PAY-1004',
           empId: 'EMP-006',
           empName: 'Pooja Verma',
-          empPhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+          empPhoto: `https://ui-avatars.com/api/?name=${encodeURIComponent('Pooja Verma')}&background=random&color=fff&bold=true`,
           amount: 32300,
           datePaid: '2026-12-01',
           method: 'UPI',
@@ -109,7 +109,7 @@ class PayRozgar {
           otRate: 80,
           lastOtNote: 'Festival rush sales closing',
           deductions: 1500,
-          photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent('Amit Sharma')}&background=random&color=fff&bold=true`,
           status: 'present',
           checkIn: '09:15 AM',
           checkOut: '06:30 PM',
@@ -126,7 +126,7 @@ class PayRozgar {
           otRate: 80,
           lastOtNote: 'Month-end inventory audit',
           deductions: 2000,
-          photo: 'https://images.unsplash.com/photo-1494790108755-2616c0763c04?w=100&h=100&fit=crop',
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent('Priya Mehta')}&background=random&color=fff&bold=true`,
           status: 'absent',
           checkIn: '—',
           checkOut: '—',
@@ -143,7 +143,7 @@ class PayRozgar {
           otRate: 80,
           lastOtNote: 'Stock shipment unloading',
           deductions: 1000,
-          photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent('Sneha Patel')}&background=random&color=fff&bold=true`,
           status: 'halfday',
           checkIn: '09:00 AM',
           checkOut: '02:00 PM',
@@ -160,7 +160,7 @@ class PayRozgar {
           otRate: 80,
           lastOtNote: 'Emergency equipment repair',
           deductions: 2000,
-          photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent('Vikram Singh')}&background=random&color=fff&bold=true`,
           status: 'leave',
           checkIn: '—',
           checkOut: '—',
@@ -177,7 +177,7 @@ class PayRozgar {
           otRate: 80,
           lastOtNote: 'Weekend store rush',
           deductions: 1000,
-          photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop',
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent('Rajesh Kumar')}&background=random&color=fff&bold=true`,
           status: 'present',
           checkIn: '09:00 AM',
           checkOut: '06:00 PM',
@@ -194,7 +194,7 @@ class PayRozgar {
           otRate: 80,
           lastOtNote: 'Tax filing preparation',
           deductions: 1200,
-          photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent('Pooja Verma')}&background=random&color=fff&bold=true`,
           status: 'present',
           checkIn: '09:30 AM',
           checkOut: '06:30 PM',
@@ -211,7 +211,7 @@ class PayRozgar {
           otRate: 80,
           lastOtNote: 'Night dispatch operations',
           deductions: 1000,
-          photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop',
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent('Suresh Nair')}&background=random&color=fff&bold=true`,
           status: 'present',
           checkIn: '08:45 AM',
           checkOut: '05:45 PM',
@@ -228,7 +228,7 @@ class PayRozgar {
           otRate: 80,
           lastOtNote: 'Billing counter clearance',
           deductions: 800,
-          photo: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop',
+          photo: `https://ui-avatars.com/api/?name=${encodeURIComponent('Neha Gupta')}&background=random&color=fff&bold=true`,
           status: 'present',
           checkIn: '09:00 AM',
           checkOut: '06:00 PM',
@@ -392,7 +392,6 @@ class PayRozgar {
   }
 
   loadBusinessProfile() {
-    const overlay = document.getElementById('onboarding-overlay');
     try {
       const saved = localStorage.getItem(this.BIZ_STORAGE_KEY);
       if (saved) {
@@ -405,15 +404,6 @@ class PayRozgar {
       }
     } catch (e) {
       console.warn('Could not load business profile:', e);
-    }
-
-    // First time setup required -> show overlay step 1
-    if (overlay) {
-      overlay.classList.remove('hidden');
-      const step1 = document.getElementById('onboard-step-1');
-      const step2 = document.getElementById('onboard-step-2');
-      if (step1) step1.classList.add('active');
-      if (step2) step2.classList.remove('active');
     }
     return null;
   }
@@ -635,14 +625,7 @@ class PayRozgar {
     const nextIndex = this.state.employees.length + 1;
     const newId = `EMP-${String(nextIndex).padStart(3, '0')}`;
 
-    // Sample avatar photo list
-    const avatarPhotos = [
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
-      'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop',
-      'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=100&h=100&fit=crop',
-      'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=100&h=100&fit=crop'
-    ];
-    const photo = avatarPhotos[Math.floor(Math.random() * avatarPhotos.length)];
+    const photo = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&color=fff&bold=true`;
 
     const newEmp = {
       id: newId,
@@ -1192,7 +1175,7 @@ class PayRozgar {
 
     history.forEach(item => {
       const tr = document.createElement('tr');
-      const photo = item.empPhoto || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop';
+      const photo = item.empPhoto || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.empName)}&background=random&color=fff&bold=true`;
       const methodBadgeClass = item.method === 'UPI' ? 'badge-info' : item.method === 'Bank Transfer' ? 'badge-present' : 'badge-warning';
 
       tr.innerHTML = `
@@ -1253,6 +1236,10 @@ class PayRozgar {
       }
 
       this.currentPage = pageName;
+
+      document.querySelectorAll('.back-to-dash-btn').forEach(btn => {
+        btn.style.display = pageName === 'dashboard' ? 'none' : 'flex';
+      });
 
       if (pageName === 'dashboard') {
         this.animateMetrics();
@@ -1430,10 +1417,10 @@ class PayRozgar {
         </td>
         <td>
           <div class="attendance-actions">
-            <button class="attendance-btn ${emp.status === 'present' ? 'active present' : ''}" data-status="present" title="Mark Present (P)">P</button>
-            <button class="attendance-btn ${emp.status === 'absent' ? 'active absent' : ''}" data-status="absent" title="Mark Absent (A)">A</button>
-            <button class="attendance-btn ${emp.status === 'halfday' ? 'active halfday' : ''}" data-status="halfday" title="Mark Half Day (HD)">HD</button>
-            <button class="attendance-btn ${emp.status === 'leave' ? 'active leave' : ''}" data-status="leave" title="Mark Leave (L)">L</button>
+            <button class="attendance-btn ${emp.status === 'present' ? 'active present' : ''}" data-status="present" title="Mark Present">✓ Present</button>
+            <button class="attendance-btn ${emp.status === 'absent' ? 'active absent' : ''}" data-status="absent" title="Mark Absent">✕ Absent</button>
+            <button class="attendance-btn ${emp.status === 'halfday' ? 'active halfday' : ''}" data-status="halfday" title="Mark Half Day">◒ Half</button>
+            <button class="attendance-btn ${emp.status === 'leave' ? 'active leave' : ''}" data-status="leave" title="Mark Leave">✈ Leave</button>
           </div>
         </td>
       `;
@@ -1962,6 +1949,7 @@ class PayRozgar {
     setTimeout(() => {
       toast.classList.add('toast-out');
       toast.addEventListener('transitionend', () => toast.remove());
+      setTimeout(() => toast.remove(), 300);
     }, 2400);
   }
 

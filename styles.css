@@ -65,6 +65,11 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: 'Inter', -apple-system, sans-serif;
   font-size: 15px;
@@ -223,6 +228,7 @@ body {
 .header-left {
   flex: 1;
   max-width: 32rem;
+  min-width: 0;
 }
 
 .search-container {
@@ -234,6 +240,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   transition: all 200ms var(--ease);
+  max-width: 100%;
 }
 
 .search-container:focus-within {
@@ -1034,6 +1041,12 @@ button:active,
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  .toast-container {
+    bottom: 5.5rem;
+  }
+}
+
 .toast {
   pointer-events: auto;
   min-width: 260px;
@@ -1338,11 +1351,12 @@ button:active,
 }
 
 .dashboard-hero-value {
-  font-size: 2.75rem;
-  font-weight: 800;
-  color: var(--text);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--accent);
   line-height: 1.1;
   margin: 0.25rem 0 0.5rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .dashboard-hero-sub {
